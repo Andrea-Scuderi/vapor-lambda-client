@@ -23,7 +23,7 @@ x-shared_environment: &shared_environment
 
 services:
   app:
-    image: Test:latest
+    image: vapor-lambda-gw:latest
     build:
       context: .
     environment:
