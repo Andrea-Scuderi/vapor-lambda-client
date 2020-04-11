@@ -9,6 +9,65 @@ using [aws-sdk-swift](https://github.com/swift-aws/aws-sdk-swift)
 
 In the 💧Vapor 4.0 project update the following files:
 
+### Package.swift
+
+- Add the package `vapor-lambda-client` to the `Package.dependencies`
+
+```
+dependencies: [
+    // ...
+    // 💧 A server-side Swift web framework.
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+
+    // 🚀 A server-side Swift Lambda client for Vapor.
+    .package(name: "vapor-lambda-client", url: "https://github.com/Andrea-Scuderi/vapor-lambda-client.git", from: "1.0.0-alpha"),
+]
+```
+
+- Add the product `VaporLambdaClient` to the `App` `target`
+
+```swift
+    .target(name: "App", dependencies: [
+            .product(name: "Vapor", package: "vapor"),
+            .product(name: "VaporLambdaClient", package: "vapor-lambda-client"),
+    ]),
+```
+
+
+Example:
+```swift
+// swift-tools-version:5.2
+import PackageDescription
+
+let package = Package(
+    name: "LocalLambdaGateway",
+    platforms: [
+        .macOS(.v10_15),
+    ],
+    products: [
+        .library(name: "LocalLambdaGateway", targets: ["App"]),
+    ],
+    dependencies: [
+        // 💧 A server-side Swift web framework.
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+
+        // 🚀 A server-side Swift Lambda client for Vapor.
+        .package(name: "vapor-lambda-client", url: "https://github.com/Andrea-Scuderi/vapor-lambda-client.git", from: "1.0.0-alpha"),
+    ],
+    targets: [
+        .target(name: "App", dependencies: [
+            .product(name: "Vapor", package: "vapor"),
+            .product(name: "VaporLambdaClient", package: "vapor-lambda-client"),
+        ]),
+        .target(name: "Run", dependencies: ["App"]),
+        .testTarget(name: "AppTests", dependencies: [
+            .target(name: "App"),
+            .product(name: "XCTVapor", package: "vapor"),
+        ])
+    ]
+)
+```
+
 ### configure.swift
 
 - Add the LambdaHandler to the app lifecycle.
@@ -47,7 +106,7 @@ public func configure(_ app: Application) throws {
 
 ```swift
 import Lambda
-import LambdaHandler
+import VaporLambdaClient
 import Vapor
 
 public func routes(_ app: Application) throws {
