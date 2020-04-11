@@ -1,7 +1,9 @@
 # ================================
 # Build image
 # ================================
-FROM vapor/swift:5.2 as build
+FROM vapor/swift:5.2.1 as build
+RUN apt-get -qq update && apt-get -q -y install \
+    libssl-dev libicu-dev
 WORKDIR /build
 
 # Copy entire repo into container
