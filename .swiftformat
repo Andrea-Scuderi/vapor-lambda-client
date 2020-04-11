@@ -1,0 +1,12 @@
+# format options
+--indent 4 
+--swiftversion 5
+--patternlet inline
+--hexliteralcase lowercase
+--stripunusedargs closure-only
+
+# file options
+--exclude Pods
+
+# rules
+--disable fileHeader,ranges,sortedImports,trailingClosures,wrap,wrapArguments,yodaConditions,hoistPatternLet
