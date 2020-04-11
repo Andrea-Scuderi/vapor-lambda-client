@@ -1,4 +1,4 @@
-# Vapor Lambda Client
+# 🚀 Swift Vapor Lambda Client
 
  [![Swift 5.2.1](https://img.shields.io/badge/Swift-5.2.1-blue.svg)](https://swift.org/download/) ![](https://img.shields.io/badge/💧Vapor-4.0.0-violet)  ![](https://img.shields.io/badge/version-1.0.0.alpha-orange) 
 
