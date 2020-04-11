@@ -13,8 +13,8 @@
 //    limitations under the License.
 
 import Lambda
-import LambdaHandler
 import Vapor
+import VaporLambdaClient
 
 public func routes(_ app: Application) throws {
     // Lambda invocation example

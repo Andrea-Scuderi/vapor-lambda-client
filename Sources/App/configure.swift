@@ -12,8 +12,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-import LambdaHandler
 import Vapor
+import VaporLambdaClient
 
 /// Called before your application initializes.
 public func configure(_ app: Application) throws {
