@@ -44,11 +44,13 @@ public protocol LambdaInvocable {
 
 extension LambdaManager: LambdaInvocable {
     public func invoke(_ query: Lambda.InvocationRequest) -> EventLoopFuture<Lambda.InvocationResponse> {
-        return handle.invoke(query)
+        return handle.invoke(query).hop(to: eventLoop)
     }
 
     public func invokeForProxy(_ query: Lambda.InvocationRequest) -> EventLoopFuture<APIGatewayProxyResult> {
-        return handle.invoke(query).flatMapThrowing { (result) -> APIGatewayProxyResult in
+        return handle.invoke(query)
+                .hop(to: eventLoop)
+                .flatMapThrowing { (result) -> APIGatewayProxyResult in
             guard let data = result.payload else {
                 throw LambdaHandlerError.emptyLambdaPayload
             }
